@@ -26,12 +26,18 @@ public class FollowPath : MonoBehaviour
     public void GoToHeli()
     {
         g.AStar(currentNode, wps[10]);
-        currentWP = 0;
+        currentWP = 1;
     }
     
     public void GoToRuin()
     {
         g.AStar(currentNode, wps[5]);
+        currentWP = 0;
+    }
+
+    public void GoToTanks()
+    {
+        g.AStar(currentNode, wps[7]);
         currentWP = 0;
     }
 
@@ -43,7 +49,7 @@ public class FollowPath : MonoBehaviour
         currentNode = g.getPathPoint(currentWP);
 
         if (Vector3.Distance
-            (g.getPathPoint(currentWP).transform.position, transform.position)<accuracy)
+            (g.getPathPoint(currentWP).transform.position, transform.position) < accuracy)
         {
             currentWP++;
         }
@@ -57,6 +63,7 @@ public class FollowPath : MonoBehaviour
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation, 
                                                        Quaternion.LookRotation(direction), 
                                                        Time.deltaTime * rotSpeed);
+            this.transform.Translate(0, 0, speed * Time.deltaTime);
 
         }
     }
